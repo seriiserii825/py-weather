@@ -1,6 +1,6 @@
 from modules.gps_coordinates import get_gps_coordinates
-from modules.printer import format_weather
 from modules.weather_api_service import get_weather
+from modules.weather_formatter import format_weather
 
 
 def main():
