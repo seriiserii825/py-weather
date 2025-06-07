@@ -9,7 +9,7 @@ def get_weather(coordinates: Coordinates) -> Weather:
     # or another weather service.
     return Weather(
         temperature=20,
-        weather_type="Sunny",
+        weather_type=WeatherType.CLEAR,
         sunrise="06:00 AM",
         sunset="08:00 PM",
         city="Sample City"
