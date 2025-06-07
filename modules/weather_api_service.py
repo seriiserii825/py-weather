@@ -1,5 +1,5 @@
 from name_tuples.nt_coordinates import Coordinates
-from name_tuples.nt_weather import Weather
+from name_tuples.nt_weather import Weather, WeatherType
 
 
 def get_weather(coordinates: Coordinates) -> Weather:
