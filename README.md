@@ -1,14 +1,16 @@
 # Instructions
 
-## 1.Install npm in your system, can use nvm to manage versions
+## Steps to install and run `whereami`
 
-## 2.Install `whereami` globally
+### 1.Install npm in your system, can use nvm to manage versions
+
+### 2.Install `whereami` globally
 
 ```bash
 npm install -g @rafaelrinaldi/whereami
 ```
 
-## 3.Run `whereami` in your terminal to see if it works
+### 3.Run `whereami` in your terminal to see if it works
 
 ```bash
 whereami
