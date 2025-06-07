@@ -5,6 +5,7 @@ from modules.weather_formatter import format_weather
 
 def main():
     coordinates = get_gps_coordinates()
+    print(f"coordinates: {coordinates}")
     weather = get_weather(coordinates)
     format_weather(weather)
 
