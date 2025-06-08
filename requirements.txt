@@ -7,7 +7,9 @@ filelock==3.18.0
 flake8==7.2.0
 identify==2.6.12
 idna==3.10
+markdown-it-py==3.0.0
 mccabe==0.7.0
+mdurl==0.1.2
 mypy==1.16.0
 mypy_extensions==1.1.0
 nodeenv==1.9.1
@@ -16,9 +18,11 @@ platformdirs==4.3.8
 pre_commit==4.2.0
 pycodestyle==2.13.0
 pyflakes==3.3.2
+Pygments==2.19.1
 python-dotenv==1.1.0
 PyYAML==6.0.2
 requests==2.32.3
+rich==14.0.0
 types-requests==2.32.0.20250602
 typing_extensions==4.14.0
 urllib3==2.4.0
