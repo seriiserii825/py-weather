@@ -4,7 +4,7 @@ from enum import Enum
 Celsius = int
 
 
-class WeatherType(Enum):
+class EWeatherType(Enum):
     THUNDERSTORM = "Thunderstorm"
     DRIZZLE = "Drizzle"
     RAIN = "Rain"
@@ -16,7 +16,7 @@ class WeatherType(Enum):
 
 class Weather(NamedTuple):
     temperature: Celsius
-    weather_type: WeatherType
+    weather_type: EWeatherType
     sunrise: str
     sunset: str
     city: str
