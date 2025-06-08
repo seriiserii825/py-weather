@@ -1,13 +1,13 @@
 from name_tuples.nt_coordinates import NtCoordinates
-from name_tuples.nt_weather import Weather, EWeatherType
+from name_tuples.nt_weather import EWeatherType, NtWeather
 
 
-def get_weather(coordinates: NtCoordinates) -> Weather:
+def get_weather(coordinates: NtCoordinates) -> NtWeather:
     """ Requests weather from openweather API and returns it as a string."""
     # This is a placeholder implementation.
-    # In a real application, you would make an API call to OpenWeather
+    # In a real application, you would make an API call to OpenNtWeather
     # or another weather service.
-    return Weather(
+    return NtWeather(
         temperature=20,
         weather_type=EWeatherType.CLEAR,
         sunrise="06:00 AM",

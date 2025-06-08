@@ -14,7 +14,7 @@ class EWeatherType(Enum):
     CLOUDS = "Clouds"
 
 
-class Weather(NamedTuple):
+class NtWeather(NamedTuple):
     temperature: Celsius
     weather_type: EWeatherType
     sunrise: str
