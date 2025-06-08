@@ -13,7 +13,7 @@ def main():
         errorPrint(f"Error fetching weather data: {e}")
         return
     print(f"weather: {weather}")
-    # format_weather(weather)
+    format_weather(weather)
 
 
 if __name__ == "__main__":
