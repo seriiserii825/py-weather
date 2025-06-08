@@ -8,13 +8,13 @@ from name_tuples.nt_coordinates import NtCoordinates
 
 def get_gps_coordinates() -> NtCoordinates:
     """Return gps coordinates using whereami by node js"""
-    output_lines = _get_whereami_output()
-    coordinates: NtCoordinates = _get_coordinates_from_list(output_lines)
+    coordinates = _get_whereami_output()
     return _round_coordinates(coordinates)
 
 
-def _get_whereami_output() -> list[str]:
-    process = Popen(['whereami', '-f', 'json'], stdout=PIPE, stderr=PIPE)
+def _get_whereami_output() -> NtCoordinates:
+    # process = Popen(['whereami', '-f', 'json'], stdout=PIPE, stderr=PIPE)
+    process = Popen(['curl', '-s', 'ipinfo.io/loc'], stdout=PIPE, stderr=PIPE)
     # Capture the output and error streams
     (output, error) = process.communicate()
     # Check if the command was successful
@@ -23,29 +23,18 @@ def _get_whereami_output() -> list[str]:
         raise CantGetCoordinates(
             f"Error getting coordinates: {error.decode().strip()}")
 
-    return output.decode(errors='ignore').splitlines()
+    output = output.strip()
+    decoded = output.decode().strip()
 
-
-def _get_coordinates_from_list(output_lines: list[str]) -> NtCoordinates:
-    json_pattern = re.compile(r'{.*"latitude".*"longitude".*}')
-    for line in output_lines:
-        match = json_pattern.search(line)
-        if match:
-            try:
-                coords = json.loads(match.group())
-                latitude = coords.get('latitude')
-                longitude = coords.get('longitude')
-                if USE_ROUNDED_COORDINATES:
-                    latitude = round(latitude, 1)
-                    longitude = round(longitude, 1)
-                return NtCoordinates(
-                    latitude=latitude,
-                    longitude=longitude
-                )
-            except json.JSONDecodeError as e:
-                raise CantGetCoordinates(f"Failed to decode JSON: {e}")
-    raise CantGetCoordinates("No valid GPS coordinates found in output.")
-
+    coord_list = [float(coord) for coord in decoded.split(',')]
+    if len(coord_list) != 2:
+        raise CantGetCoordinates("Invalid coordinates format received.")
+    if not all(isinstance(coord, float) for coord in coord_list):
+        raise CantGetCoordinates("Coordinates must be floats.")
+    return NtCoordinates(
+        latitude=coord_list[0],
+        longitude=coord_list[1]
+    )
 
 def _round_coordinates(coordinates: NtCoordinates):
     """Round coordinates if USE_ROUNDED_COORDINATES is True."""
