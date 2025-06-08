@@ -22,7 +22,8 @@ def get_weather(coordinates: NtCoordinates):
     api_key = _get_api_key_from_env()
     info = _get_weather_json_from_api(api_key, coordinates)
     json_str = _prepare_to_json(str(info))
-    return _parse_json_to_dict(json_str)
+    result = _parse_json_to_dict(json_str)
+    return result
 
 
 def _get_api_key_from_env() -> str:
