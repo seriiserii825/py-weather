@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
 
-class Coordinates(NamedTuple):
+class NtCoordinates(NamedTuple):
     latitude: float
     longitude: float

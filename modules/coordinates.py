@@ -2,10 +2,10 @@ import json
 import re
 from subprocess import Popen, PIPE
 from exceptions import CantGetCoordinates
-from name_tuples.nt_coordinates import Coordinates
+from name_tuples.nt_coordinates import NtCoordinates
 
 
-def get_gps_coordinates() -> Coordinates:
+def get_gps_coordinates() -> NtCoordinates:
     """Return gps coordinates using whereami by node js"""
     # Assuming 'whereami' is a command-line tool that returns GPS coordinates
     process = Popen(['whereami', '-f', 'json'], stdout=PIPE, stderr=PIPE)
@@ -25,7 +25,7 @@ def get_gps_coordinates() -> Coordinates:
         if match:
             try:
                 coords = json.loads(match.group())
-                return Coordinates(
+                return NtCoordinates(
                     latitude=coords['latitude'],
                     longitude=coords['longitude']
                 )
