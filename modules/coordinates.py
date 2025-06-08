@@ -1,6 +1,7 @@
 import json
 import re
 from subprocess import Popen, PIPE
+from config import USE_ROUNDED_COORDINATES
 from exceptions import CantGetCoordinates
 from name_tuples.nt_coordinates import NtCoordinates
 
@@ -25,9 +26,14 @@ def get_gps_coordinates() -> NtCoordinates:
         if match:
             try:
                 coords = json.loads(match.group())
+                latitude = coords.get('latitude')
+                longitude = coords.get('longitude')
+                if USE_ROUNDED_COORDINATES:
+                    latitude = round(latitude, 1)
+                    longitude = round(longitude, 1)
                 return NtCoordinates(
-                    latitude=coords['latitude'],
-                    longitude=coords['longitude']
+                    latitude=latitude,
+                    longitude=longitude
                 )
             except json.JSONDecodeError as e:
                 raise CantGetCoordinates(f"Failed to decode JSON: {e}")
