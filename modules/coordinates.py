@@ -14,7 +14,6 @@ def get_gps_coordinates() -> NtCoordinates:
 
 
 def _get_whereami_output() -> list[str]:
-    # Assuming 'whereami' is a command-line tool that returns GPS coordinates
     process = Popen(['whereami', '-f', 'json'], stdout=PIPE, stderr=PIPE)
     # Capture the output and error streams
     (output, error) = process.communicate()
