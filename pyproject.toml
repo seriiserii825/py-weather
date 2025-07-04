@@ -1,0 +1,60 @@
+[project]
+name = "my_project"
+version = "0.1.0"
+description = ""
+dependencies = [
+    "certifi==2025.4.26",
+    "cfgv==3.4.0",
+    "charset-normalizer==3.4.2",
+    "distlib==0.3.9",
+    "filelock==3.18.0",
+    "identify==2.6.12",
+    "idna==3.10",
+    "markdown-it-py==3.0.0",
+    "mccabe==0.7.0",
+    "mdurl==0.1.2",
+    "mypy-extensions==1.1.0",
+    "nodeenv==1.9.1",
+    "pathspec==0.12.1",
+    "platformdirs==4.3.8",
+    "pre-commit==4.2.0",
+    "pycodestyle==2.13.0",
+    "pyflakes==3.3.2",
+    "pygments==2.19.1",
+    "python-dotenv==1.1.0",
+    "pyyaml==6.0.2",
+    "requests==2.32.3",
+    "rich==14.0.0",
+    "ruff>=0.12.2",
+    "types-requests==2.32.0.20250602",
+    "typing-extensions==4.14.0",
+    "urllib3==2.4.0",
+    "virtualenv==20.31.2",
+]
+
+[tool.ruff]
+line-length = 88
+exclude = [
+    "migrations",
+    "tests",
+    "docs",
+    "build",
+    "dist",
+    "venv",
+    ".venv",
+    ".git",
+    "__pycache__",
+]
+fix = true
+unsafe-fixes = true
+target-version = "py312"  # <- specify Python 3.12 explicitly here
+
+[tool.ruff.lint]
+select = [
+    "F401",  # Unused import
+    "F403",  # Wildcard import
+    "F405",  # Name may be undefined, or defined from star imports
+    "F841",  # Local variable is assigned to but never used
+    "E501",  # Line too long
+    "I",     # Import sorting (isort-compatible)
+]

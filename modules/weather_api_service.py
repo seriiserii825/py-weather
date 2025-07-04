@@ -1,13 +1,12 @@
-import json
-from datetime import datetime
 import ast
+import json
 import os
-import requests
-
+from datetime import datetime
 from json.decoder import JSONDecodeError
 from pathlib import Path
 from typing import Literal, TypeAlias
 
+import requests
 from dotenv import load_dotenv
 
 from exceptions import ApiServiceError
@@ -18,7 +17,7 @@ Celsius: TypeAlias = int
 
 
 def get_weather(coordinates: NtCoordinates):
-    """ Requests weather from openweather API and returns it as a string."""
+    """Requests weather from openweather API and returns it as a string."""
     api_key = _get_api_key_from_env()
     info = _get_weather_json_from_api(api_key, coordinates)
     json_str = _prepare_to_json(str(info))
@@ -27,10 +26,10 @@ def get_weather(coordinates: NtCoordinates):
 
 
 def _get_api_key_from_env() -> str:
-    """ Retrieves the API key from environment variables."""
+    """Retrieves the API key from environment variables."""
     current_script_path = Path(__file__).resolve()
     # .env is 2 up levels
-    dotenv_path = current_script_path.parents[1] / '.env'
+    dotenv_path = current_script_path.parents[1] / ".env"
     load_dotenv(dotenv_path)
 
     if not os.getenv("OPEN_WEATHER_API_KEY"):
@@ -42,7 +41,7 @@ def _get_api_key_from_env() -> str:
 
 
 def _get_weather_json_from_api(API_KEY: str, coordinates: NtCoordinates) -> str:
-    """ Fetches weather information from OpenWeather API"""
+    """Fetches weather information from OpenWeather API"""
     """using the provided API key and coordinates."""
     lat = coordinates.latitude
     lon = coordinates.longitude
@@ -65,7 +64,7 @@ def _prepare_to_json(str_from_api: str):
 
 
 def _parse_json_to_dict(openweather_response: str) -> NtWeather:
-    """ Parses JSON string to a dictionary."""
+    """Parses JSON string to a dictionary."""
     try:
         openweather_dict = json.loads(openweather_response)
     except JSONDecodeError:
@@ -75,7 +74,7 @@ def _parse_json_to_dict(openweather_response: str) -> NtWeather:
         weather_type=_parse_weather_type(openweather_dict),
         sunrise=_parse_sun_time(openweather_dict, "sunrise"),
         sunset=_parse_sun_time(openweather_dict, "sunset"),
-        city=_parse_city(openweather_dict)
+        city=_parse_city(openweather_dict),
     )
 
 
@@ -95,7 +94,7 @@ def _parse_weather_type(openweather_dict: dict) -> EWeatherType:
         "6": EWeatherType.SNOW,
         "7": EWeatherType.FOG,
         "800": EWeatherType.CLEAR,
-        "80": EWeatherType.CLOUDS
+        "80": EWeatherType.CLOUDS,
     }
     for _id, _weather_type in weather_types.items():
         if weather_type_id.startswith(_id):
@@ -104,8 +103,8 @@ def _parse_weather_type(openweather_dict: dict) -> EWeatherType:
 
 
 def _parse_sun_time(
-        openweather_dict: dict,
-        time: Literal["sunrise"] | Literal["sunset"]) -> str:
+    openweather_dict: dict, time: Literal["sunrise"] | Literal["sunset"]
+) -> str:
     formated_time = datetime.fromtimestamp(openweather_dict["sys"][time])
     return formated_time.strftime("%H:%M:%S")
 
